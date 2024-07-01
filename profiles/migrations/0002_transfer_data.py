@@ -8,11 +8,9 @@ def transfer_data(apps, schema_editor):
     NewProfile = apps.get_model('profiles', 'Profile')
     User = apps.get_model('auth', 'User')
 
-    # Transfer Profile data
     for old_profile in OldProfile.objects.all():
-        user = User.objects.get(pk=old_profile.user.pk)
         new_profile = NewProfile(
-            user=user,
+            user=old_profile.user,
             favorite_city=old_profile.favorite_city
         )
         new_profile.save()

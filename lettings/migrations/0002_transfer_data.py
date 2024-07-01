@@ -26,7 +26,7 @@ def transfer_data(apps, schema_editor):
             address=old_letting.address
         )
         new_letting.save()
-
+  
 
 class Migration(migrations.Migration):
 
