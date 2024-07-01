@@ -23,7 +23,7 @@ def transfer_data(apps, schema_editor):
     for old_letting in OldLetting.objects.all():
         new_letting = NewLetting(
             title=old_letting.title,
-            address=NewAddress.objects.get(pk=old_letting.address.pk)
+            address=old_letting.address
         )
         new_letting.save()
 
