@@ -1,10 +1,52 @@
 import os
-
 from pathlib import Path
+import logging
+import sentry_sdk
+from sentry_sdk.integrations.logging import LoggingIntegration
+
+logging.basicConfig(level=logging.INFO)
+
+sentry_sdk.init(
+    dsn="https://e7e9be05bd89144b398ba61e4c3fc98c@o4507471152349184.ingest.de.sentry.io/4507562035970128",
+    # Set traces_sample_rate to 1.0 to capture 100%
+    # of transactions for performance monitoring.
+    traces_sample_rate=1.0,
+    # Set profiles_sample_rate to 1.0 to profile 100%
+    # of sampled transactions.
+    # We recommend adjusting this value in production.
+    profiles_sample_rate=1.0,
+    environment="environment",
+    integrations=[
+        LoggingIntegration(
+            level=logging.INFO,        # Capture info and above as breadcrumbs
+            event_level=logging.INFO   # Send records as events
+        ),
+    ],
+)
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+        },
+    },
+    "root": {
+        "handlers": ["console"],
+        "level": "WARNING",
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["console"],
+            "level": os.getenv("DJANGO_LOG_LEVEL", "INFO"),
+            "propagate": False,
+        },
+    },
+}
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/

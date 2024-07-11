@@ -1,14 +1,15 @@
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 
-import profiles.views
-import lettings.views
+from . import views
+
+def trigger_error(request):
+    division_by_zero = 1 / 0
 
 urlpatterns = [
-    path('', lettings.views.index, name='index'),
-    path('lettings/', lettings.views.lettings_index, name='lettings_index'),
-    path('lettings/<int:letting_id>/', lettings.views.letting, name='letting'),
-    path('profiles/', profiles.views.profiles_index, name='profiles_index'),
-    path('profiles/<str:username>/', profiles.views.profile, name='profile'),
+    path('', views.index, name='index'),
+    path('lettings/', include('lettings.urls', namespace='lettings')),
+    path('profiles/', include('profiles.urls', namespace='profiles')),
     path('admin/', admin.site.urls),
+    path('sentry-debug/', trigger_error),
 ]
