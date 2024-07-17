@@ -18,6 +18,7 @@ def test_address_model():
     assert address.number == 7
     assert address.street == "Victor Hugo"
 
+
 @pytest.mark.django_db
 def test_letting_model():
     address = Address.objects.create(
@@ -31,6 +32,7 @@ def test_letting_model():
     letting = Letting.objects.create(title="Virage du Nord", address=address)
     assert letting.title == "Virage du Nord"
     assert letting.address == address
+
 
 @pytest.mark.django_db
 def test_index_view():
@@ -48,6 +50,7 @@ def test_index_view():
     assert response.status_code == 200
     assert "Lettings" in response.content.decode()
 
+
 @pytest.mark.django_db
 def test_letting_view():
     address = Address.objects.create(
@@ -64,10 +67,12 @@ def test_letting_view():
     assert response.status_code == 200
     assert "Virage du Nord" in response.content.decode()
 
+
 def test_index_url():
     path = reverse('lettings:index')
     assert resolve(path).view_name == 'lettings:index'
     assert resolve(path).func == index
+
 
 def test_letting_url():
     path = reverse('lettings:letting', args=[1])
