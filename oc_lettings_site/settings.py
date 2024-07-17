@@ -7,7 +7,8 @@ from sentry_sdk.integrations.logging import LoggingIntegration
 logging.basicConfig(level=logging.INFO)
 
 sentry_sdk.init(
-    dsn="https://e7e9be05bd89144b398ba61e4c3fc98c@o4507471152349184.ingest.de.sentry.io/4507562035970128",
+    dsn="https://e7e9be05bd89144b398ba61e4c3fc98c@o4507471152349184" +
+    ".ingest.de.sentry.io/4507562035970128",
     # Set traces_sample_rate to 1.0 to capture 100%
     # of transactions for performance monitoring.
     traces_sample_rate=1.0,
