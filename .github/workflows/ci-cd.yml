@@ -60,7 +60,7 @@ jobs:
 
     - name: Build Docker image
       run: |
-        docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/django-app:latest -t ${{ secrets.DOCKER_HUB_USERNAME }}/django-app:${{ steps.vars.outputs.commit_sha }} .
+        docker build -t ${{ vars.DOCKER_HUB_USERNAME }}/django-app:latest -t ${{ vars.DOCKER_HUB_USERNAME }}/django-app:${{ steps.vars.outputs.commit_sha }} .
 
     - name: Push Docker image
       run: |
