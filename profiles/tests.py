@@ -12,7 +12,7 @@ def test_profile_mdoel():
         username="Moussa"
         )
     profile = Profile.objects.create(
-        user=user, 
+        user=user,
         favorite_city="Paris"
         )
     assert profile.user == user
