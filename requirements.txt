@@ -5,3 +5,4 @@ six
 sentry_sdk
 pytest-cov
 gunicorn
+whitenoise
