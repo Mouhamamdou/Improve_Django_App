@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls import handler500
 
 from . import views
 
@@ -15,3 +16,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('sentry-debug/', trigger_error),
 ]
+
+handler500 = 'oc_lettings_site.views.custom_error_500'
