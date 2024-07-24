@@ -75,3 +75,29 @@ Utilisation de PowerShell, comme ci-dessus sauf :
 
 - Pour activer l'environnement virtuel, `.\venv\Scripts\Activate.ps1` 
 - Remplacer `which <my-command>` par `(Get-Command <my-command>).Path`
+
+## Deployment
+
+### Résumé
+
+Ce pipeline CI/CD est conçu pour construire, tester, conteneuriser et déployer automatiquement l'application Django. Il se compose de trois parties principales :
+
+1. **Compilation et Tests** : Vérifie le linting, exécute les tests et assure une couverture de test minimale de 80%.
+2. **Conteneurisation** : Construit une image Docker, la tague avec le hash du commit, et la pousse vers Docker Hub.
+3. **Déploiement** : Déploie l'application sur Render.com uniquement pour les modifications apportées à la branche `main`.
+
+### Configuration Requise
+
+- Un compte Docker Hub avec des credentials stockés en tant que secrets GitHub (`DOCKER_HUB_USERNAME` et `DOCKER_HUB_ACCESS_TOKEN`).
+- Un compte Render.com avec `RENDER_SERVICE_ID` et `RENDER_API_KEY` stockés en tant que secrets GitHub.
+
+### Étapes de Déploiement
+
+1. **Configurer les Secrets GitHub** :
+   - `DOCKER_HUB_USERNAME`
+   - `DOCKER_HUB_ACCESS_TOKEN`
+   - `RENDER_SERVICE_ID`
+   - `RENDER_API_KEY`
+
+2. **Pousser les modifications vers `main`** :
+   - Les modifications sur `main` déclencheront automatiquement le pipeline CI/CD.
