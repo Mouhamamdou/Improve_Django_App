@@ -37,14 +37,20 @@
 <ol class="arabic simple">
 <li><p><strong>Containerization:</strong></p>
 <ul class="simple">
-<li><p>Build the Docker image:</p></li>
-<li><p>Push the Docker image to Docker Hub:</p></li>
+<li><p>Build the Docker image:
+docker build -t your-image:latest .</p></li>
+<li><p>Tag the Docker image:
+docker tag your-image:latest your-dockerhub-username/your-image:latest</p></li>
+<li><p>Push the Docker image to Docker Hub:
+docker push your-dockerhub-username/your-image:latest</p></li>
 </ul>
 </li>
 <li><p><strong>Deployment:</strong></p>
 <ul class="simple">
-<li><p>Pull the Docker image from Docker Hub:</p></li>
-<li><p>Run the Docker container:</p></li>
+<li><p>Pull the Docker image from Docker Hub:
+docker pull your-dockerhub-username/your-image:latest</p></li>
+<li><p>Run the Docker container:
+docker run -d -p 8000:8000 your-dockerhub-username/your-image:latest</p></li>
 </ul>
 </li>
 <li><p><strong>Configuration:</strong></p>
