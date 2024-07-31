@@ -64,7 +64,6 @@ jobs:
 
     - name: Push Docker image
       run: |
-        docker push ${{ vars.DOCKER_HUB_USERNAME }}/django-app:latest
         docker push ${{ vars.DOCKER_HUB_USERNAME }}/django-app:${{ steps.vars.outputs.commit_sha }}
 
   deploy:
