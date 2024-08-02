@@ -1,5 +1,8 @@
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 from .models import Letting
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 def index(request):
@@ -11,7 +14,11 @@ def index(request):
     """
     lettings_list = get_list_or_404(Letting)
     context = {'lettings_list': lettings_list}
-    return render(request, 'lettings/index.html', context)
+    try:
+        return render(request, 'lettings/index.html', context)
+    except Exception as e:
+        logger.error(f"An error occured: {e}")
+        raise
 
 
 def letting(request, letting_id):
@@ -26,4 +33,8 @@ def letting(request, letting_id):
         'title': letting.title,
         'address': letting.address,
     }
-    return render(request, 'lettings/letting.html', context)
+    try:
+        return render(request, 'lettings/letting.html', context)
+    except Exception as e:
+        logger.error(f"An error occured: {e}")
+        raise

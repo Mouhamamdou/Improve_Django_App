@@ -1,5 +1,8 @@
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 from .models import Profile
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 def index(request):
@@ -11,7 +14,11 @@ def index(request):
     """
     profiles_list = get_list_or_404(Profile)
     context = {'profiles_list': profiles_list}
-    return render(request, 'profiles/index.html', context)
+    try:
+        return render(request, 'profiles/index.html', context)
+    except Exception as e:
+        logger.error(f"An error occured: {e}")
+        raise
 
 
 def profile(request, username):
@@ -23,4 +30,8 @@ def profile(request, username):
     """
     profile = get_object_or_404(Profile, user__username=username)
     context = {'profile': profile}
-    return render(request, 'profiles/profile.html', context)
+    try:
+        return render(request, 'profiles/profile.html', context)
+    except Exception as e:
+        logger.error(f"An error occured: {e}")
+        raise
