@@ -13,19 +13,15 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      max-parallel: 4
-      matrix:
-        python-version: [3.7, 3.8, 3.9]
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: Set up Python ${{ matrix.python-version }}
+    - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: ${{ matrix.python-version }}
+        python-version: 3.9
 
     - name: Install Dependencies
       run: |
@@ -60,11 +56,10 @@ jobs:
 
     - name: Build Docker image
       run: |
-        docker build -t ${{ vars.DOCKER_HUB_USERNAME }}/django-app:latest -t ${{ vars.DOCKER_HUB_USERNAME }}/django-app:${{ steps.vars.outputs.commit_sha }} .
+        docker build -t ${{ vars.DOCKER_HUB_USERNAME }}/django-app:${{ steps.vars.outputs.commit_sha }} .
 
     - name: Push Docker image
       run: |
-        docker push ${{ vars.DOCKER_HUB_USERNAME }}/django-app:latest
         docker push ${{ vars.DOCKER_HUB_USERNAME }}/django-app:${{ steps.vars.outputs.commit_sha }}
 
   deploy:
